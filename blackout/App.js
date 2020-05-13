@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
@@ -5,15 +6,19 @@ import React, { useState } from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import AppNavigator from "./navigation/AppNavigator";
-import { SafeAreaView } from "react-navigation";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { reducer } from "./reducers/reducer";
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import LoginScreen from './screens/LoginScreen'
 
+//const store = createStore(reducer);
+//store.subscribe(() => {});
+const Stack = createStackNavigator();
 
-const store = createStore(reducer);
-store.subscribe(() => {});
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
@@ -29,16 +34,15 @@ export default function App(props) {
     return <SplashScreen />;
   } else {
     return (
-      <Provider store={store}>
-        <SafeAreaView style={{ flex: 1 }}>
-          <StatusBar hidden />
-          <View style={styles.container}>
-            {Platform.OS === "ios" && <StatusBar barStyle="default" />}
-           
-            <AppNavigator />
-          </View>
-        </SafeAreaView>
-      </Provider>
+    <SafeAreaProvider>
+      <NavigationContainer>
+     <Stack.Navigator initialRouteName="Login" headerMode= "none">
+       <Stack.Screen name="Login"component={LoginScreen} />
+       
+     </Stack.Navigator>
+
+      </NavigationContainer>
+  </SafeAreaProvider>
     );
   }
 }

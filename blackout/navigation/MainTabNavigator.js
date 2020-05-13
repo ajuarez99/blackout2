@@ -9,10 +9,20 @@ const config = Platform.select({
     default: {}
   });
 
-const LoginStack = createStackNavigator(
-      {
-          Login: LoginScreen,
-      },
-      config
+const LoginStack = createStackNavigator();
+
+function RootStack(){
+  return(
+    <LoginStack.Navigator
+      intialRouteName="Login"
+      screenOptions={{ gestureEnabled: false }}
+      >
+        <LoginStack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{title:'Login'}}
+        />
+      </LoginStack.Navigator>
   );
-LoginStack.path = "";
+
+}

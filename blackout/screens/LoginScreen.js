@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { ScrollView, StyleSheet, View, Text } from "react-native";
 import { connect } from "react-redux";
 import { AppLoading, SplashScreen } from "expo";
-
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 class LoginScreen extends Component{
     static navigationOptions = ({ navigation }) => {
         return {
@@ -16,9 +16,13 @@ class LoginScreen extends Component{
     render(){
 
         return(
+          <SafeAreaView
+      
+    >
             <View>
                 <Text>Login Screen </Text>
             </View>
+            </SafeAreaView>
         );
     }
 
