@@ -1,10 +1,7 @@
 import React from "react";
 import { Platform } from "react-native";
-import {
-    createStackNavigator,
-    createBottomTabNavigator,
-    createMaterialTopTabNavigator
-  } from "react-navigation";
+import { createStackNavigator } from '@react-navigation/stack';
+
 import LoginScreen from "../screens/LoginScreen";
 
 const config = Platform.select({
