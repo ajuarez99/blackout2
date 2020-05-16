@@ -1,51 +1,116 @@
 import React, { Component } from "react";
-import { ScrollView, Button, View, Alert  } from "react-native";
-import { connect } from "react-redux";
-import { AppLoading, SplashScreen } from "expo";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import HeaderTitle from "../components/HeaderTitle";
-import TextInput from "../components/TextInput";
+import {
+  ScrollView,
+  Button,
+  View,
+  Alert,
+  TextInput,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableHighlight,
+} from "react-native";
+
 class LoginScreen extends Component {
   state = { email: "", password: "" };
-  handleEmailChange(value){
-    this.setState({email:value});
-  }
-  handlePasswordChange(value){
-    this.setState({password:value});
-  }
-  alert(){
-    Alert.alert(this.state.email +" " +this.state.password)
+
+  alert() {
+    Alert.alert(this.state.email + " " + this.state.password);
   }
   render() {
     return (
-      <SafeAreaView>
-        <View>
-          <HeaderTitle text="Login" />
-
+      <View style={styles.container}>
+        <Text style={styles.logo}>Blackout</Text>
+        <View style={styles.inputView}>
           <TextInput
-            textContentType="emailAddress"
-            keyboardType="email-address"
-            input={false}
-            autoCapitalize="none"
-            autoCompleteType="email"
-            name="Email"
-            return="next"
-            value={this.state.email.value}
-            onChangeText={(text) => this.handleEmailChange(text)}
-          />
-          <TextInput
-            name="Password"
-            return="done"
-            input={true}
-            value={this.state.password.value}
-            onChangeText={(text) => this.handlePasswordChange(text)}
-          />
-          <Button title="Login"
-          onPress={() =>  this.alert()}
+            style={styles.inputText}
+            placeholder="Email"
+            placeholderTextColor="#003f5c"
+            onChangeText={(text) => this.setState({ email: text })}
           />
         </View>
-      </SafeAreaView>
+        <View style={styles.inputView}>
+          <TextInput
+            secureTextEntry
+            style={styles.inputText}
+            placeholder="Password"
+            placeholderTextColor="#003f5c"
+            onChangeText={(text) => this.setState({ password: text })}
+          />
+        </View>
+        <TouchableOpacity>
+          <Text style={styles.forgot}>Forgot Password?</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+         style={styles.button}
+         onPress={() => Alert.alert(this.state.email)}
+       >
+         <Text style={styles.bold}>Login </Text>
+ </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Text style={styles.loginText}>Signup</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 }
 export default LoginScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  bold:{
+    fontSize: 20, 
+  },
+  logo: {
+    fontWeight: "bold",
+    fontSize: 50,
+    color: "#171616",
+    marginBottom: 40,
+  },
+  inputView: {
+    width: "80%",
+    backgroundColor: "#ccbaba",
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 20,
+    justifyContent: "center",
+    padding: 20,
+  },
+  inputText: {
+    height: 50,
+    color: "black",
+  },
+  forgot: {
+    color: "black",
+    fontSize: 11,
+  },
+  loginBtn: {
+    width: "80%",
+    backgroundColor: "#fb5b5a",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    marginBottom: 10,
+  },
+  loginText: {
+    color: "black",
+  },
+  button: {
+    width: "80%",
+    backgroundColor: "#fb5b5a",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    marginBottom: 10,
+  },
+});
