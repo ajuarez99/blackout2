@@ -3,7 +3,7 @@ import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import React, { useState } from "react";
-import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import { Platform, StatusBar, StyleSheet, View, Button } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { Provider } from "react-redux";
@@ -14,9 +14,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./screens/LoginScreen";
+import RegistrationScreen from "./screens/RegistrationScreen";
 
-//const store = createStore(reducer);
-//store.subscribe(() => {});
+const store = createStore(reducer);
+store.subscribe(() => {});
 const Stack = createStackNavigator();
 
 export default function App(props) {
@@ -34,13 +35,32 @@ export default function App(props) {
     return <SplashScreen />;
   } else {
     return (
-      <SafeAreaProvider>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login" headerMode="none">
-            <Stack.Screen name="Login" component={LoginScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaProvider>
+      <Provider store={store}>
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Login" headerMode="float">
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="Login"
+                component={LoginScreen}
+              />
+              <Stack.Screen
+                name="Registration"
+                component={RegistrationScreen}
+                options={{
+                  title:'',
+                  headerStyle: {
+                    backgroundColor: "#f5f5f5",
+                    shadowColor: 'transparent'
+                    
+                  },
+                   
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </Provider>
     );
   }
 }

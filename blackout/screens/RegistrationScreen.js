@@ -11,21 +11,36 @@ import {
   TouchableHighlight,
 } from "react-native";
 
-class LoginScreen extends Component {
-  state = { email: "", password: "" };
-
-  alert() {
-    Alert.alert(this.state.email + " " + this.state.password);
-  }
+class RegistrationScreen extends Component {
+   
+    state={email:"",password:"",confirmPassword:"",username:""}
   render() {
-    const{navigate}=this.props.navigation;
+ //   const{navigate}=this.props.navigation;
     return (
+         
       <View style={styles.container}>
-        <Text style={styles.logo}>Blackout</Text>
+   
+        <Text style={styles.logo}>Sign Up</Text>
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
             placeholder="Email"
+            placeholderTextColor="#003f5c"
+            onChangeText={(text) => this.setState({ email: text })}
+          />
+        </View>
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Username"
+            placeholderTextColor="#003f5c"
+            onChangeText={(text) => this.setState({ email: text })}
+          />
+        </View>
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Full Name"
             placeholderTextColor="#003f5c"
             onChangeText={(text) => this.setState({ email: text })}
           />
@@ -39,24 +54,30 @@ class LoginScreen extends Component {
             onChangeText={(text) => this.setState({ password: text })}
           />
         </View>
-        <TouchableOpacity>
-          <Text style={styles.forgot}>Forgot Password?</Text>
-        </TouchableOpacity>
+        <View style={styles.inputView}>
+          <TextInput
+            secureTextEntry
+            style={styles.inputText}
+            placeholder="Confirm Password"
+            placeholderTextColor="#003f5c"
+            onChangeText={(text) => this.setState({ password: text })}
+          />
+        </View>
+        
         <TouchableOpacity
-         style={styles.button}
-         onPress={() => Alert.alert(this.state.email)}
-       >
-         <Text style={styles.bold}>Login </Text>
- </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Text style={styles.loginText} onPress={() => navigate('Registration')}>Signup</Text>
+          style={styles.button}
+          onPress={() => Alert.alert(this.state.email)}
+        >
+          <Text style={styles.bold}>Sign up! </Text>
         </TouchableOpacity>
+
+
       </View>
     );
   }
 }
-export default LoginScreen;
+
+export default RegistrationScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -65,8 +86,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  bold:{
-    fontSize: 20, 
+  bold: {
+    fontSize: 20,
   },
   logo: {
     fontWeight: "bold",
