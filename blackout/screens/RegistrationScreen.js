@@ -13,7 +13,7 @@ import {
 
 class RegistrationScreen extends Component {
    
-    state={email:"",password:"",confirmPassword:"",username:""}
+    state={email:"",password:"",confirmPassword:"",username:"",name:""}
   render() {
  //   const{navigate}=this.props.navigation;
     return (
@@ -34,7 +34,7 @@ class RegistrationScreen extends Component {
             style={styles.inputText}
             placeholder="Username"
             placeholderTextColor="#003f5c"
-            onChangeText={(text) => this.setState({ email: text })}
+            onChangeText={(text) => this.setState({ username: text })}
           />
         </View>
         <View style={styles.inputView}>
@@ -42,7 +42,7 @@ class RegistrationScreen extends Component {
             style={styles.inputText}
             placeholder="Full Name"
             placeholderTextColor="#003f5c"
-            onChangeText={(text) => this.setState({ email: text })}
+            onChangeText={(text) => this.setState({ name: text })}
           />
         </View>
         <View style={styles.inputView}>
@@ -60,7 +60,7 @@ class RegistrationScreen extends Component {
             style={styles.inputText}
             placeholder="Confirm Password"
             placeholderTextColor="#003f5c"
-            onChangeText={(text) => this.setState({ password: text })}
+            onChangeText={(text) => this.setState({ confirmPassword: text })}
           />
         </View>
         
