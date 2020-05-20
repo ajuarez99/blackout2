@@ -10,10 +10,20 @@ import {
   TouchableOpacity,
   TouchableHighlight,
 } from "react-native";
+import { connect } from "react-redux";
 
 class RegistrationScreen extends Component {
    
     state={email:"",password:"",confirmPassword:"",username:"",name:""}
+    handleRegister = () =>{
+      const data ={
+        email:this.state.email,
+        password:this.state.password,
+        username: this.state.username,
+        name:this.state.name
+      }
+      this.props.RegisterUserData(data);
+    }
   render() {
  //   const{navigate}=this.props.navigation;
     return (
@@ -66,7 +76,7 @@ class RegistrationScreen extends Component {
         
         <TouchableOpacity
           style={styles.button}
-          onPress={() => Alert.alert(this.state.email)}
+          onPress={() => this.handleRegister(this)}
         >
           <Text style={styles.bold}>Sign up! </Text>
         </TouchableOpacity>
@@ -76,8 +86,21 @@ class RegistrationScreen extends Component {
     );
   }
 }
+const mapDispatchToProps = dispatch => {
+  return{
+    RegisterUserData: user =>{
+      dispatch({
+        type:"REGISTER_USER",
+        payload:{user}
+      })
+    }
+  }
+}
+const mapStateToProps = state => {
+  return {};
+};
 
-export default RegistrationScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(RegistrationScreen);
 
 const styles = StyleSheet.create({
   container: {

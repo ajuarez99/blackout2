@@ -56,6 +56,16 @@ class LoginScreen extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveUserData: (data) => {
+      dispatch({
+        type: "REGISTER_USER",
+        payload: { data },
+      });
+    },
+  };
+};
 export default LoginScreen;
 
 const styles = StyleSheet.create({

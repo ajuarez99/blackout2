@@ -19,7 +19,7 @@ import RegistrationScreen from "./screens/RegistrationScreen";
 const store = createStore(reducer);
 store.subscribe(() => {});
 const Stack = createStackNavigator();
-
+console.ignoredYellowBox = ['Remote debugger'];
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
