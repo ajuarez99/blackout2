@@ -3,7 +3,14 @@ import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import React, { useState } from "react";
-import { Platform, StatusBar, StyleSheet, View, Button } from "react-native";
+import {
+  Platform,
+  StatusBar,
+  StyleSheet,
+  View,
+  Button,
+  AsyncStorage,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { Provider } from "react-redux";
@@ -15,12 +22,25 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./screens/LoginScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
+import HomeScreen from "./screens/HomeScreen";
+import { getUser } from "./repositories/UserRepository";
 
 const store = createStore(reducer);
 store.subscribe(() => {});
+const defaultUser = {
+  user:{
+  email: "",
+  password: "",
+  username: "",
+  name: "",
+  LoggedIn: false,
+  }
+};
 const Stack = createStackNavigator();
-console.ignoredYellowBox = ['Remote debugger'];
+console.ignoredYellowBox = ["Remote debugger"];
+
 export default function App(props) {
+  const [state, dispatch] = React.useReducer(reducer, defaultUser);
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -38,25 +58,33 @@ export default function App(props) {
       <Provider store={store}>
         <SafeAreaProvider>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login" headerMode="float">
-              <Stack.Screen
-                options={{ headerShown: false }}
-                name="Login"
-                component={LoginScreen}
-              />
-              <Stack.Screen
-                name="Registration"
-                component={RegistrationScreen}
-                options={{
-                  title:'',
-                  headerStyle: {
-                    backgroundColor: "#f5f5f5",
-                    shadowColor: 'transparent'
-                    
-                  },
-                   
-                }}
-              />
+            <Stack.Navigator initialRouteName="Lo gin" headerMode="float">
+              {state.user.LoggedIn == false ? (
+                <>
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="Login"
+                    component={LoginScreen}
+                  />
+                  <Stack.Screen
+                    name="Registration"
+                    component={RegistrationScreen}
+                    options={{
+                      title: "",
+                      headerStyle: {
+                        backgroundColor: "#f5f5f5",
+                        shadowColor: "transparent",
+                      },
+                    }}
+                  />
+                </>
+              ) : (
+                <Stack.Screen
+                  options={{ headerShown: true }}
+                  name="Home"
+                  component={HomeScreen}
+                />
+              )}
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaProvider>

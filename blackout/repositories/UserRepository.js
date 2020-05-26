@@ -6,7 +6,8 @@ const defaultUser={
     email:"",
     password:"",
     username:"",
-    name:""
+    name:"",
+    LoggedIn:false
 }
 
 export async function getUser(){
